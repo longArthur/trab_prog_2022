@@ -50,28 +50,14 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return this.velocidade;
     }
 
-   public String liga(){
-
-        if(this.ligado = false){
-
-            this.ligado = true;
-            return "veiculo ligado";
-        }else {
-
-            return "veiculo ja esta ligado";
-        }
+   public boolean liga(){
+        this.ligado = true;
+        return this.ligado;
    }
 
-   public String desliga(){
-
-        if(this.ligado = true){
-
-            this.ligado = false;
-            return "veiculo desligado";
-        }else{
-
-            return "veiculo ja desligado";
-        }
+   public boolean desliga(){
+        this.ligado = false;
+        return this.ligado;
    }
 
     @Override
@@ -96,7 +82,8 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return (this.marca.equals(in.marca)) &&
                 (this.modelo.equals(in.modelo)) &&
                 (this.fabricacao.equals(in.fabricacao)) &&
-                (this.velocidade == in.velocidade);
+                (this.velocidade == in.velocidade) &&
+                (this.ligado == in.ligado);
     }
 
     @Override
