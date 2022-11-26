@@ -6,6 +6,7 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
     private final String modelo;
     private final LocalDate fabricacao;
     private double velocidade;
+    private boolean ligado;
 
     public VeiculoAutomotor(String marca, String modelo, LocalDate fabricacao){
         Objects.requireNonNull(marca,"Marca nao pode ser nula");
@@ -16,25 +17,28 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         this.modelo = modelo;
         this.fabricacao = fabricacao;
         this.velocidade = 0;
+        this.ligado = false;
     }
 
     //getters
 
     public double getVelocidade() {
-        return velocidade;
+        return this.velocidade;
     }
 
     public String getMarca() {
-        return marca;
+        return this.marca;
     }
 
     public String getModelo() {
-        return modelo;
+        return this.modelo;
     }
 
     public LocalDate getFabricacao() {
-        return fabricacao;
+        return this.fabricacao;
     }
+
+    public boolean isLigado(){ return this.ligado; }
 
     public boolean aumentaVelocidade(double aAdicionar){
         this.velocidade += aAdicionar;
@@ -46,15 +50,40 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return this.velocidade;
     }
 
+   public String liga(){
+
+        if(this.ligado = false){
+
+            this.ligado = true;
+            return "veiculo ligado";
+        }else {
+
+            return "veiculo ja esta ligado";
+        }
+   }
+
+   public String desliga(){
+
+        if(this.ligado = true){
+
+            this.ligado = false;
+            return "veiculo desligado";
+        }else{
+
+            return "veiculo ja desligado";
+        }
+   }
+
     @Override
     public String toString() {
         return String.format("""
                 Marca: %s
                 Modelo: %s
                 Fabricacao: %d/%d/%d
-                Velocidade: %f02.1""", this.getMarca(), this.getModelo(),
+                Velocidade: %f02.1
+                Ligado: %b""", this.getMarca(), this.getModelo(),
                 this.getFabricacao().getDayOfMonth(), this.getFabricacao().getDayOfMonth(),this.getFabricacao().getYear(),
-                this.getVelocidade());
+                this.getVelocidade(), this.ligado);
     }
 
     @Override
