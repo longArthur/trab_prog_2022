@@ -127,8 +127,8 @@ public class Carro extends VeiculoAutomotor{
                 Fabricacao: %d/%d/%d
                 Velocidade: %f02.1
                 Ligado: %b
-                Marcha: %d""", super.getMarca(), super.getModelo(),
-                super.getFabricacao().getDayOfMonth(), super.getFabricacao().getDayOfMonth(), super.getFabricacao().getYear(),
-                super.getVelocidade(), super.isLigado(), this.getMarcha());
+                Marchas: %d""", super.getMarca(), super.getModelo(),
+                super.getFabricacao().getDayOfMonth(), super.getFabricacao().getMonth(), super.getFabricacao().getYear(),
+                super.getVelocidade(), super.isLigado(), this.getLimiteMarca());
     }
 }
