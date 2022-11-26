@@ -65,7 +65,7 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return String.format("""
                 Marca: %s
                 Modelo: %s
-                Fabricacao: %d/%d/%d
+                Fabricacao: %d/%s/%d
                 Velocidade: %f02.1
                 Ligado: %b""", this.getMarca(), this.getModelo(),
                 this.getFabricacao().getDayOfMonth(), this.getFabricacao().getMonth(),this.getFabricacao().getYear(),

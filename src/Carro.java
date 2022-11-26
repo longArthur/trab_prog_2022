@@ -124,7 +124,7 @@ public class Carro extends VeiculoAutomotor{
         return String.format("""
                 Marca: %s
                 Modelo: %s
-                Fabricacao: %d/%d/%d
+                Fabricacao: %d/%s/%d
                 Velocidade: %f02.1
                 Ligado: %b
                 Marchas: %d""", super.getMarca(), super.getModelo(),
