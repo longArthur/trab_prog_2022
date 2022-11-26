@@ -40,9 +40,9 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
 
     public boolean isLigado(){ return this.ligado; }
 
-    public boolean aumentaVelocidade(double aAdicionar){
+    public double aumentaVelocidade(double aAdicionar){
         this.velocidade += aAdicionar;
-        return true;
+        return this.velocidade;
     }
 
     public double diminuiVelocidade(double aDiminuir){
