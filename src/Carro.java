@@ -22,36 +22,86 @@ public class Carro extends VeiculoAutomotor{
     //metodos
     @Override
     public boolean liga(){
-        super.ligado = true;
-        return super.isLigado();
+
+        if(!super.isLigado() && this.marcha == 0) {
+
+            super.liga();
+
+            return super.isLigado();
+        }
+
+        return false;
     }
 
     @Override
     public boolean desliga(){
-        super.ligado = false;
-        return super.isLigado();
+
+        if(this.isLigado() && this.marcha == 0) {
+
+            super.desliga();
+
+            return super.isLigado();
+        }
+
+        return false;
     }
 
     @Override
-    public double aumentaVelocidade(double aAdicionar){
+    public boolean aumentaVelocidade(double aAdicionar) {
 
-        if(aAdicionar < 0){
+        double limiteMax = this.marcha * 20;
 
-            return fa
+        if (super.isLigado() && this.marcha > 0) {
+
+            if (aAdicionar < 0) {
+                return false;
+            }
+
+            if (super.getVelocidade() + aAdicionar > limiteMax) {
+
+                super.aumentaVelocidade(limiteMax - super.getVelocidade());
+
+                return true;
+            }
+
+            else {
+
+                super.aumentaVelocidade(aAdicionar);
+
+                    return true;
+            }
         }
 
-        return super.getVelocidade();
+        return false;
     }
 
     @Override
-    public double diminuiVelocidade(double aDiminuir){
+    public boolean diminuiVelocidade(double aDiminuir){
 
-        if(super.isLigado() == true && super.getVelocidade() > 0){
+        if(super.isLigado() && super.getVelocidade() > 0){
 
+            if(aDiminuir < 0){
 
+                return false;
+            }
+
+            if(super.getVelocidade() - aDiminuir < 0){
+
+                super.diminuiVelocidade(super.getVelocidade());
+
+                    return true;
+
+            }
+
+            else {
+
+                super.diminuiVelocidade(aDiminuir);
+
+                return true;
+            }
         }
 
-        return super.getVelocidade();
+        return false;
     }
 
     public void aumentaMarcha(int aMarcha){
