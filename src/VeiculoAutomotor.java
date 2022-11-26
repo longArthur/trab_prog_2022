@@ -48,16 +48,46 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
 
     @Override
     public String toString() {
-        return super.toString();
+        return String.format("""
+                Marca: %s
+                Modelo: %s
+                Fabricacao: %d/%d/%d
+                Velocidade: %f02.1""", this.getMarca(), this.getModelo(),
+                this.getFabricacao().getDayOfMonth(), this.getFabricacao().getDayOfMonth(),this.getFabricacao().getYear(),
+                this.getVelocidade());
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!this.getClass().isInstance(obj)) return false;
+
+        VeiculoAutomotor in = (VeiculoAutomotor) obj;
+        return (this.marca.equals(in.marca)) &&
+                (this.modelo.equals(in.modelo)) &&
+                (this.fabricacao.equals(in.fabricacao)) &&
+                (this.velocidade == in.velocidade);
     }
 
     @Override
     public int compareTo(VeiculoAutomotor obj){
-
+        if (this.equals(obj)) return 0;
+        switch (this.marca.compareTo(obj.marca)) {
+            case -1:
+                return -1;
+            case 0:
+                switch (this.modelo.compareTo(obj.modelo)) {
+                    case -1:
+                        return -1;
+                    case 0:
+                        return this.fabricacao.compareTo(obj.fabricacao);
+                    case 1:
+                        return 1;
+                }
+            case 1:
+                return 1;
+        }
+        return -1   ;
     }
 }
