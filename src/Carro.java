@@ -34,14 +34,24 @@ public class Carro extends VeiculoAutomotor{
 
     @Override
     public double aumentaVelocidade(double aAdicionar){
-        super.velocidade += aAdicionar;
-        return true;
+
+        if(aAdicionar < 0){
+
+            return fa
+        }
+
+        return super.getVelocidade();
     }
 
     @Override
     public double diminuiVelocidade(double aDiminuir){
-        super.velocidade -= aDiminuir;
-        return super.velocidade;
+
+        if(super.isLigado() == true && super.getVelocidade() > 0){
+
+
+        }
+
+        return super.getVelocidade();
     }
 
     public void aumentaMarcha(int aMarcha){
