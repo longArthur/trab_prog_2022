@@ -41,11 +41,13 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
     public boolean isLigado(){ return this.ligado; }
 
     public boolean aumentaVelocidade(double aAdicionar){
+        if (aAdicionar < 0) return false;
         this.velocidade += aAdicionar;
         return true;
     }
 
     public boolean diminuiVelocidade(double aDiminuir){
+        if (aDiminuir < 0) return false;
         this.velocidade -= aDiminuir;
         return true;
     }
@@ -65,11 +67,11 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return String.format("""
                 Marca: %s
                 Modelo: %s
-                Fabricacao: %d/%s/%d
-                Velocidade: %f02.1
+                Fabricacao: %d/%d/%d
+                Velocidade: %f03.1
                 Ligado: %b""", this.getMarca(), this.getModelo(),
-                this.getFabricacao().getDayOfMonth(), this.getFabricacao().getMonth(),this.getFabricacao().getYear(),
-                this.getVelocidade(), this.isLigado());
+                this.getFabricacao().getDayOfMonth(), this.getFabricacao().getDayOfMonth(),this.getFabricacao().getYear(),
+                this.getVelocidade(), this.ligado);
     }
 
     @Override
