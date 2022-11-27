@@ -116,6 +116,10 @@ import java.util.Scanner;
                         //(; super.getVelocidade() <= 280; )
                         System.out.println("Aumentar a velocidade em?");
                         aumentaVelocidade(tcl.nextDouble());
+                            for( ;getVelocidade()< 280; ){
+                            System.out.println(" Acelere-o a ate 280 Km/h para ele voar");
+                            aumentaVelocidade(tcl.nextDouble());
+                            }
                         }
                         System.out.println(" O avião esta Voando");
                         setVoando(true);
