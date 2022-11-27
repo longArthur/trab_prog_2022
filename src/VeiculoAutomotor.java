@@ -38,17 +38,26 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
         return this.fabricacao;
     }
 
-    public boolean isLigado(){ return this.ligado; }
+    public boolean isLigado(){
+        return this.ligado;
+    }
 
     public boolean aumentaVelocidade(double aAdicionar){
-        if (aAdicionar < 0) return false;
-        this.velocidade += aAdicionar;
-        return true;
+        if (this.isLigado()) {
+            if (aAdicionar < 0)  return false;
+            this.velocidade += aAdicionar;
+            return true;
+        }
+        else
+            return false;
     }
 
     public boolean diminuiVelocidade(double aDiminuir){
         if (aDiminuir < 0) return false;
-        this.velocidade -= aDiminuir;
+        else if (this.velocidade - aDiminuir < 0)
+            this.velocidade = 0;
+        else
+            this.velocidade -= aDiminuir;
         return true;
     }
 
