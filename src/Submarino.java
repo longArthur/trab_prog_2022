@@ -59,10 +59,10 @@ public class Submarino extends VeiculoAutomotor {
     //overrides
     @Override
     public boolean aumentaVelocidade(double aAdicionar){
-        if (this.getVelocidade() + aAdicionar >= maxVel)
-            return super.aumentaVelocidade(maxVel - this.getVelocidade());
+        if (this.getVelocidade() + aAdicionar >= this.maxVel)
+            return super.aumentaVelocidade(this.maxVel - this.getVelocidade());
         else
-            return this.aumentaVelocidade(aAdicionar);
+            return super.aumentaVelocidade(aAdicionar);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Submarino extends VeiculoAutomotor {
         if (this.getVelocidade() - aDiminuir <= 0)
             return super.diminuiVelocidade(this.getVelocidade());
         else
-            return this.diminuiVelocidade(aDiminuir);
+            return super.diminuiVelocidade(aDiminuir);
     }
 
     @Override

@@ -1,239 +1,131 @@
 import java.time.LocalDate;
-import java.util.Scanner;
+import java.util.Objects;
 
-    public class Aviao extends VeiculoAutomotor {
-        Scanner tcl = new Scanner (System.in);
-        private Double adicionar;
-        private boolean permTaxiTorre = false;
-        private boolean taxiPista = false;
-        private boolean PermTorDecol = false;
-        private boolean Voando;
-        private boolean permTorrePous = false;
+public class Aviao extends VeiculoAutomotor {
+    private final String codigo;
+    private final double maxVel;
+    private final double maxAltitude;
+    private final double velDecolagem;
+    private boolean voando;
+    private double altitude;
 
-        private boolean ProtPousPista =false;
-        private final double peso;
+    public Aviao(String marca, String modelo, LocalDate fabricacao, String codigo, double maxVel, double velDecolagem, double maxAltitude){
+        super(marca, modelo, fabricacao);
+        Objects.requireNonNull(codigo, "codigo nao pode ser nulo");
+        if (maxVel < 0) throw new IllegalArgumentException("velocidade maxima nao pode ser negativa");
+        if (velDecolagem > maxVel) throw new IllegalArgumentException("velocidade decolagem nao pode ser maior do que velocidade maxima");
+        if (velDecolagem < 0) throw new IllegalArgumentException("velocidade decolagem nao pode ser menor que 0");
+        if (maxAltitude < 10) throw new IllegalArgumentException("maxAltitude nao pode ser menor que 10m");
 
-        private final String codigo;
-        public Aviao(String marca, String modelo, LocalDate fabricacao, double Peso, String codigo){
-            super(marca, modelo, fabricacao);
-            this.peso = Peso;
-            this.codigo = codigo;
-        }
-        //getter
-
-
-        public String isCodigo() {
-            return codigo;
-        }
-        public double isPeso() {
-            return peso;
-        }
-
-        public boolean isPermTaxiTorre() {
-            return permTaxiTorre;
-        }
-
-        public boolean isTaxiPista(){
-            return this.taxiPista;
-        }
-
-        public boolean isPermTorDecol() {
-            return PermTorDecol;
-        }
-
-        public boolean isVoando() {
-            return Voando;
-        }
-
-        public boolean isPermTorrePous() {
-            return permTorrePous;
-        }
-
-        public boolean isProtPousPista() {
-            return ProtPousPista;
-        }
-
-        //setter
-        public void setPermTaxiTorre(boolean permTaxiTorre) {
-            this.permTaxiTorre = permTaxiTorre;
-        }
-
-        public void setTaxiPista(boolean taxiPista) {
-            this.taxiPista = taxiPista;
-        }
-
-        public void setPermTorDecol(boolean permTorDecol) {
-            this.PermTorDecol = permTorDecol;
-        }
-
-        public void setVoando(boolean voando) {
-            this.Voando = voando;
-        }
-
-        public void setPermTorrePous(boolean permTorrePous) {
-            this.permTorrePous = permTorrePous;
-        }
-
-        public void setProtPousPista(boolean protPousPista) {
-            ProtPousPista = protPousPista;
-        }
-
-        //metodos de decolagem
-
-        public void getPermTaxiTorre() {
-            if (super.isLigado() == false) throw new IllegalArgumentException(" O aviao esta desligado");
-            else if (isPermTaxiTorre() == true) throw new IllegalArgumentException("-Torre: Permissão ja concedida");
-                else {
-                    setPermTaxiTorre(true);
-                    System.out.println("-Torre: Permissão para taxiamento a pista concedida");
-                }
-        }
-
-        public void getTaxiPista() {
-            if (super.isLigado() == false)throw new IllegalArgumentException(" O aviao esta desligado");
-            else{
-                if (isPermTaxiTorre() == false) throw new IllegalArgumentException(" Eh necessario a permissao da torre");
-                else {
-                    if (isTaxiPista() == true) throw new IllegalArgumentException("-Torre: O aviao ja foi taxiado a pista");
-                    else setTaxiPista(true);
-                }
-            }
-        }
-        public void getPermTorDecol(){
-                if (super.isLigado() == false) throw new IllegalArgumentException(" O aviao esta desligado");
-                else if (PermTorDecol == true) throw new IllegalArgumentException("-Torre: Permissão ja concedida");
-                    else {
-                        setPermTorDecol(true);
-                        System.out.println("-Torre: Permissão para decolagem concedida");
-                    }
-        }
-
-        public void getDecolando(){
-            if (super.isLigado() == false) throw new IllegalArgumentException(" O aviao esta desligado");
-            else if( isTaxiPista() == false) throw new IllegalArgumentException( "O aviao nao esta na pista");
-                else if ( isPermTorDecol() == false) throw new IllegalArgumentException( " Permissao para decolagem ainda nao foi concedida");
-                    else {
-                        //(; super.getVelocidade() <= 280; )
-                        System.out.println("Aumentar a velocidade em?");
-                        aumentaVelocidade(tcl.nextDouble());
-                            for( ;getVelocidade()< 280; ){
-                            System.out.println(" Acelere-o a ate 280 Km/h para ele voar");
-                            aumentaVelocidade(tcl.nextDouble());
-                            }
-                        }
-                        System.out.println(" O avião esta Voando");
-                        setVoando(true);
-                        setPermTaxiTorre(false);
-                        setTaxiPista(false);
-                        setPermTorDecol(false);
-                    }
-        //metodos da classe pai
-        @Override
-        public String toString() {
-            return String.format("""
-                Marca: %s
-                Modelo: %s
-                Fabricacao: %d/%d/%d
-                Velocidade: %f03.1
-                Ligado: %b""", this.getMarca(), this.getModelo(),
-                    super.getFabricacao().getDayOfMonth(), super.getFabricacao().getDayOfMonth(),super.getFabricacao().getYear(),
-                    super.getVelocidade(), super.isLigado(), isPeso(), isCodigo(), isVoando());
-        }
-        @Override
-        public boolean aumentaVelocidade(double aAdicionar){
-            if(aAdicionar < 0) throw new IllegalArgumentException( "O aviao nao pode acelerar com um numero negativo");
-            else{ if (super.getVelocidade()+aAdicionar > 850) throw new IllegalArgumentException( "O aviao nao pode acelerar mais do que 850 km/h");
-                else {
-                    super.aumentaVelocidade(aAdicionar);
-                    System.out.println(" A velocidade foi aumentada para "+getVelocidade()+" Km/h");
-                    return true;
-                }
-            }
-        }
-        @Override
-        public boolean diminuiVelocidade(double aDiminuir){
-            if(aDiminuir < 0) throw new IllegalArgumentException( "O aviao nao pode desacelerar com um numero negativo");
-            else if( super.getVelocidade()-aDiminuir < 0) throw new IllegalArgumentException( "Velocidade nao pode ser menor do que 0");
-                else super.diminuiVelocidade(aDiminuir);
-                    System.out.println(" A velocidade foi diminuida para "+getVelocidade()+" Km/h");
-            return true;
-        }
-        @Override
-        public boolean liga() {
-            if (super.isLigado() == true) {
-                throw new IllegalArgumentException("O aviao ja esta ligado");
-            }
-            else {
-                System.out.println(" o Aviao foi ligado");
-                return super.liga();
-            }
-        }
-        @Override
-        public boolean desliga() {
-            if ( isVoando() == true) throw new IllegalArgumentException("O aviao nao pode ser desligado enquanto voa");
-            else {
-                if (super.isLigado() == false) {
-                    throw new IllegalArgumentException("O aviao ja esta desligado");
-                } else {
-                    System.out.println(" o Aviao foi desligado");
-                    return super.desliga();
-                }
-            }
-
-        }// metodos de pouso
-
-        public void getPermPousTorre(){
-            if ( isVoando() == false) throw new IllegalArgumentException(" O aviao precisa estar voando para pedir permissão para pousar na pista");
-            else {
-                System.out.println("-Torre: O aviao esta liberado para pousar");
-                setPermTorrePous(true);
-            }
-        }
-
-        public void getProtPousPista(){
-            if(isVoando() == false) throw new IllegalArgumentException(" O avião precisa estar voando");
-            else if( isPermTorrePous() == false ) throw new IllegalArgumentException("Para pousar eh necessario a permissao da torre");
-                else { setProtPousPista(true); System.out.println((" O aviao foi posicionado na cabeceira da pista"));
-            }
-        }
-        public void getReverEmpuxoPouso(){
-            if ( isPeso() > 28)
-                if(isVoando() == false) throw new IllegalArgumentException(" O avião precisa estar voando");
-                else if( isPermTorrePous() == false ) throw new IllegalArgumentException("Para pousar eh necessario a permissao da torre");
-                     else if( isProtPousPista() == false) throw new IllegalArgumentException( "Para puxar o reverso eh necessario estar na cabeceira da pista");
-                         else {
-                        System.out.println(" O reverso foi puxado");
-                           diminuiVelocidade(getVelocidade());
-                           System.out.println(" o Aviao foi pousado");
-                           setPermTorrePous(false);
-                           setProtPousPista(false);
-                        }
-            else if( isPermTorrePous() == false ) throw new IllegalArgumentException("Para pousar eh necessario a permissao da torre");
-                else if( isProtPousPista() == false) throw new IllegalArgumentException( "Para puxar o reverso eh necessario estar na cabeceira da pista");
-                    else {
-                        diminuiVelocidade(getVelocidade());
-                        System.out.println(" o Aviao foi pousado");
-                        setPermTorrePous(false);
-                        setProtPousPista(false);
-                        setVoando(false);
-                    }
-        }
-
-        //protocolos de pouso e decolagem
-
-        public void getProtocoloDecolagem(){
-            liga();
-            getPermTaxiTorre();
-            getTaxiPista();
-            getPermTorDecol();
-            getDecolando();
-        }
-
-        public void getProtocolPouso(){
-            getPermPousTorre();
-            getProtPousPista();
-            getReverEmpuxoPouso();
-            desliga();
-        }
+        this.codigo = codigo;
+        this.maxVel = maxVel;
+        this.velDecolagem = velDecolagem;
+        this.maxAltitude = maxAltitude;
+        this.voando = false;
     }
 
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    public boolean isVoando() {
+        return this.voando;
+    }
+
+    public double getMaxVel() {
+        return this.maxVel;
+    }
+
+    public double getVelDecolagem() {
+        return this.velDecolagem;
+    }
+
+    public double getMaxAltitude() {
+        return maxAltitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+    //metodos de decolagem
+
+    public boolean decola(){
+        if (this.isLigado() && (this.getVelocidade() >= this.velDecolagem)) {
+            this.voando = true;
+            this.altitude += 10;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean pouso(){
+        this.voando = false;
+        this.altitude = 0;
+        return false;
+    }
+
+    public boolean aumentaAltitude(double aAumentar) {
+        if (aAumentar < 0) return false;
+
+        if (this.voando) {
+            if (this.altitude + aAumentar > this.maxAltitude){
+                this.altitude = this.maxAltitude;
+            }
+            else
+                this.altitude += aAumentar;
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean diminuiAltitude(double aDiminuir) {
+        if (aDiminuir < 0) return false;
+
+        if (this.voando){
+            if (this.altitude - aDiminuir < 10){
+                this.altitude = 10;
+            }
+            else
+                this.altitude -= aDiminuir;
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                %s
+                Codigo: %s
+                Velocidade maxima: %03.1f
+                Altitude maxima: %03.1f
+                Voando: %b
+                Velocidade de Decolagem: %03.1f
+                Altitude: %03.1f""", super.toString(), this.codigo, this.maxVel, this.maxAltitude, this.voando, this.velDecolagem, this.altitude); // TODO TOSTRING
+    }
+
+    @Override
+    public boolean aumentaVelocidade(double aAdicionar){
+        if (this.getVelocidade() + aAdicionar >= this.maxVel)
+            return super.aumentaVelocidade(this.maxVel - this.getVelocidade());
+        else
+            return this.aumentaVelocidade(aAdicionar);
+    }
+    @Override
+    public boolean diminuiVelocidade(double aDiminuir){
+        double maxDiminuir = (voando) ? (velDecolagem) : 0;
+
+        if (this.getVelocidade() - aDiminuir <= maxDiminuir)
+            return super.diminuiVelocidade(this.getVelocidade() - maxDiminuir);
+        else
+            return super.diminuiVelocidade(aDiminuir);
+    }
+    @Override
+    public boolean desliga() {
+        if (this.isVoando())
+            return true;
+        else
+            return super.desliga();
+    }
+}
