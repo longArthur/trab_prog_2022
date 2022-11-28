@@ -77,9 +77,9 @@ public abstract class VeiculoAutomotor implements Comparable<VeiculoAutomotor> {
                 Marca: %s
                 Modelo: %s
                 Fabricacao: %d/%d/%d
-                Velocidade: %f03.1
+                Velocidade: %03.1f
                 Ligado: %b""", this.getMarca(), this.getModelo(),
-                this.getFabricacao().getDayOfMonth(), this.getFabricacao().getDayOfMonth(),this.getFabricacao().getYear(),
+                this.getFabricacao().getDayOfMonth(), this.getFabricacao().getMonthValue(),this.getFabricacao().getYear(),
                 this.getVelocidade(), this.ligado);
     }
 

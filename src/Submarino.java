@@ -39,7 +39,7 @@ public class Submarino extends VeiculoAutomotor {
 
 
     public boolean submerge(double aSubmergir){
-        if (aSubmergir < 0) return false;
+        if (aSubmergir < 0 || !this.isLigado()) return false;
         else if (this.profundidade + aSubmergir > this.limProfundidade)
             this.profundidade = this.limProfundidade;
         else
@@ -66,20 +66,12 @@ public class Submarino extends VeiculoAutomotor {
     }
 
     @Override
-    public boolean diminuiVelocidade(double aDiminuir){
-        if (this.getVelocidade() - aDiminuir <= 0)
-            return super.diminuiVelocidade(this.getVelocidade());
-        else
-            return super.diminuiVelocidade(aDiminuir);
-    }
-
-    @Override
     public String toString() {
         return String.format("""
                 %s
                 Registro: %s
-                Profundidade: %f03.1
-                Lim profundidade: %f03.1
-                Lim velocidade: %f03.1""", super.toString(), this.getRegistro(), this.getProfundidade() , this.getLimProfundidade(), this.getVelocidade());
+                Profundidade: %03.1f
+                Lim profundidade: %03.1f
+                Lim velocidade: %03.1f""", super.toString(), this.getRegistro(), this.getProfundidade() , this.getLimProfundidade(), this.getMaxVel());
     }
 }
